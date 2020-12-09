@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
-function App() {
+const App = () => {
+  const [query, setQuery] = useState("");
+  const getInfo = async () => {
+    let info = await axios.get(`${process.env.REACT_APP_BASE}`, {
+      params: {
+        apiKey: process.env.REACT_APP_KEY,
+        outputFormat: "JSON",
+        domainName: query,
+      },
+    });
+    console.log(info);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="d-flex justify-content-around mt-5">
+      <TextField
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        variant="outlined"
+        label="URL"
+        className="w-75 text-left"
+      />
+      <Button variant="outlined" color="primary" onClick={getInfo}>
+        Test
+      </Button>
     </div>
   );
-}
+};
 
 export default App;
