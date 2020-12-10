@@ -9,7 +9,7 @@ const Health = ({ domainName }) => {
     };
 
     getRank();
-  }, []);
+  }, [domainName]);
   return (
     <div>
       {/* api call for sentiment analysis */}
