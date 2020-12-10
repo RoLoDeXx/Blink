@@ -3,6 +3,7 @@ import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Status from "./Status";
+import Health from "./Health";
 
 const App = () => {
   const [domainInfo, setDomainInfo] = useState({});
@@ -16,7 +17,6 @@ const App = () => {
       },
     });
     setDomainInfo(info.data.WhoisRecord);
-    console.log(info.data.WhoisRecord);
   };
 
   return (
@@ -38,6 +38,13 @@ const App = () => {
         <div>
           <h1 className="display-4 mt-4">Status</h1>
           <Status domainInfo={domainInfo} />
+        </div>
+      )}
+
+      {domainInfo.domainName === undefined ? null : (
+        <div>
+          <h1 className="display-4 mt-4">Site Health</h1>
+          <Health domainName={domainInfo.domainName} />
         </div>
       )}
     </div>
